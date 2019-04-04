@@ -1,19 +1,22 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Tweet from './Tweet'
-
+import Post from './Post'
 class Dashboard extends Component {
     render() {
         return (
             <div>
                 <h3 className='center'>You TimeLine</h3>
-                <ul className='dashboard-list'>
-                    {this.props.tweetIds.map((id) => (
-                        <li key={id}>
-                           <Tweet id={id} />
-                        </li>
-                    ))}
-                </ul>
+                <div className='row justify-content-md-center'>
+
+                    <ul className='dashboard-list'>
+                        {this.props.postsIds.map((id) => (
+                            <li key={id}>
+                            {id}
+                                <Post id={id} />
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             </div>
         )
     }
@@ -21,10 +24,10 @@ class Dashboard extends Component {
 
 
 
-function mapStateToProps({ tweets }) {
+function mapStateToProps({ posts }) {
     return {
-        tweetIds: Object.keys(tweets)
-            .sort((a, b) => tweets[b].timestamp = tweets[a].timestamp)
+        postsIds: Object.keys(posts)
+            .sort((a, b) => posts[b].timestamp > posts[a].timestamp)
     };
 }
 

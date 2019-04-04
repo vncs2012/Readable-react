@@ -19,7 +19,7 @@ class Tweet extends Component {
     }
     toParent = (e, id) => {
         e.preventDefault()
-        this.props.history.push(`/tweet/${id}`)
+        this.props.history.push(`/z/${id}`)
     }
     render() {
         const { tweet } = this.props

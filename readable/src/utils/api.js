@@ -1,24 +1,31 @@
-import {
-  _getUsers,
-  _getTweets,
-  _saveLikeToggle,
-  _saveTweet,
-} from './_DATA.js'
+const api = "http://localhost:3001/"
 
-export function getInitialData () {
+let token = localStorage.token
+if (!token)
+  token = localStorage.token = Math.random().toString(36).substr(-8)
+
+const headers = {
+  'Accept': 'application/json',
+  'Authorization': token
+}
+
+function getAllCategoria() {
+  return fetch(`${api}categories`, { headers })
+    .then(res => res.json())
+    .then(data => data.categories )
+}
+function getAllPosts() {
+  return fetch(`${api}posts`, { headers })
+    .then(res => res.json())
+    .then(data => data)
+}
+
+export function getInitialData() {
   return Promise.all([
-    _getUsers(),
-    _getTweets(),
-  ]).then(([users, tweets]) => ({
-    users,
-    tweets,
+    getAllCategoria(),
+    getAllPosts(),
+  ]).then(([categoria, posts]) => ({
+    categoria,
+    posts,
   }))
-}
-
-export function saveLikeToggle (info) {
-  return _saveLikeToggle(info)
-}
-
-export function saveTweet (info) {
-  return _saveTweet(info)
 }

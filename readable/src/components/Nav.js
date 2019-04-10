@@ -9,7 +9,6 @@ class Nav extends Component {
     if (categoria === null) {
       return <p>This Tweet doesn't existd</p>
     }
-    console.log("aqui vamos ", categoria)
     return (
       <nav >
         <ul className="nav justify-content-center">

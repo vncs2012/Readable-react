@@ -11,7 +11,6 @@ class Dashboard extends Component {
                     <ul className='dashboard-list'>
                         {this.props.postsIds.map((id) => (
                             <li key={id}>
-                            {id}
                                 <Post id={id} />
                             </li>
                         ))}
@@ -30,6 +29,5 @@ function mapStateToProps({ posts }) {
             .sort((a, b) => posts[b].timestamp > posts[a].timestamp)
     };
 }
-
 
 export default connect(mapStateToProps)(Dashboard)

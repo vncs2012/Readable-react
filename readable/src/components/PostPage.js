@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Post from './Post'
+import Comentario from './Comentario'
+import NewComentario from './NewComentario'
 
-class TweetPage extends Component {
+class PostPage extends Component {
     render() {
         const { id } = this.props
         return (
             <div>
                 <Post id={id} />
-                
+                <NewComentario />
+                <Comentario />
             </div>
         )
     }
@@ -16,10 +19,9 @@ class TweetPage extends Component {
 
 function mapStateToProps({ Post }, props) {
     const { id } = props.match.params
-
     return {
         id
     }
 }
 
-export default connect(mapStateToProps)(TweetPage) 
+export default connect(mapStateToProps)(PostPage) 

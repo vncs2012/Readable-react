@@ -5,7 +5,7 @@ import { handleInitialData } from '../actions/shared'
 import Dashboard from './Dashboard'
 import LoadingBar from 'react-redux-loading'
 import Nav from './Nav'
-import TweetPage from './TweetPage'
+import PostPage from './PostPage'
 
 class App extends Component {
   componentDidMount() {
@@ -22,7 +22,7 @@ class App extends Component {
               ? null
               : <div>
                 <Route path='/' exact component={Dashboard} />
-                <Route path='/posts/:id' component={TweetPage} />
+                <Route path='/posts/:id' component={PostPage} />
               </div>}
           </div>
         </Fragment>

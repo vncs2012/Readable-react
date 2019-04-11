@@ -18,9 +18,10 @@ function getAllPosts() {
   return fetch(`${api}posts`, { method: 'GET', headers })
     .then(res => res.json())
     .then(data => data)
-}
-export function getPost(id) {
-  return fetch(`${api}posts/${id}`, { method: 'GET', headers })
+} 
+export function getComentarios(id) {
+  return fetch(api+'posts/'+id+'/comments',
+   { mode: 'cors', method: 'get', headers })
     .then(res => res.json())
     .then(data => data)
 }

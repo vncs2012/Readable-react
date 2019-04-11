@@ -15,13 +15,13 @@ class NewComentario extends Component {
     }
     handleSubmit = (e) => {
         e.preventDefault()
-        
-        const { text,author } = this.state
+
+        const { text, author } = this.state
         const { dispatch, id } = this.props
         const dados = {
             timestamp: '',
-            body :text,
-            author:author,
+            body: text,
+            author: author,
             parentId: id
         }
         console.log(dados)
@@ -29,7 +29,7 @@ class NewComentario extends Component {
 
         this.setState(() => ({
             text: '',
-            author:'',
+            author: '',
             toHome: id ? false : true,
         }))
     }
@@ -42,25 +42,25 @@ class NewComentario extends Component {
         }
         return (
 
-            <div>
-                <h5 className='center'>New Comentario</h5>
-                <form className='new-tweet' onSubmit={this.handleSubmit}>
-                    <input type='text' placeholder='enter your name' className='from'></input>
-                    <textarea
-                        placeholder="What are you thinking about post?"
-                        //value={text}
-                        // onChange={this.handleChange}
-                        className='textarea'
-                        maxLength={280}
-                    />
-                    <button
-                        className='btn'
-                        type='submit'
-                    >
-                        Submit
-            </button>
-                </form>
-            </div>)
+            <div className="card">
+                <div className="card-body">
+                    <h5 className='card-title'>New Comentario</h5>
+                    <form className='new-tweet' onSubmit={this.handleSubmit}>
+                        <div className="form-group">
+                            <input className="form-control form-control-sm" type="text" placeholder='enter your name'></input>
+                        </div>
+                        <textarea className="form-control" 
+                            placeholder="What are you thinking about post?"
+                            //value={text}
+                            // onChange={this.handleChange}
+                            className='textarea'
+                            maxLength={280}
+                        />
+                        <button type="button" className="btn btn-primary">Primary</button>
+                    </form>
+                </div>
+            </div>
+        )
     }
 }
 

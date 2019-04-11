@@ -12,3 +12,11 @@ export function formatPost(post) {
   }
 
 }
+export function formatComentario(Comentario) {
+  const {    id, parentId, timestamp, body, author	, voteScore, deleted,parentDeleted} = Comentario
+
+  return {
+    id, parentId, timestamp, body, author	, voteScore, deleted,parentDeleted
+  }
+
+}

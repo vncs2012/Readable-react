@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { formatComentario, formatDate } from '../utils/helpers'
-import { TiArrowBackOutline, TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti/index'
-import { Link, withRouter } from 'react-router-dom'
-
-// import { Container } from './styles';
+import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti/index'
+import { withRouter } from 'react-router-dom'
 
 class Comentario extends Component {
+
+
   handleLike = (e) => {
     e.preventDefault()
 
@@ -17,13 +17,13 @@ class Comentario extends Component {
       return <p>This Comment doesn't existd</p>
     }
     const {
-      id, parentId, timestamp, body, author	, voteScore, deleted,parentDeleted
+      id, parentId, timestamp, body, author, voteScore, deleted, parentDeleted
     } = comentario
     return (
       <div className="card" >
         <div className="card-body">
           <h6 className="card-subtitle mb-2 text-muted">
-          author: {author} -{formatDate(timestamp)}</h6>
+            author: {author} - {formatDate(timestamp)}</h6>
           <p className="card-text">{body}</p>
           <div className='card-link'>
             <TiArrowSortedUp className='tweet-icon' />
@@ -35,12 +35,10 @@ class Comentario extends Component {
     )
   }
 }
-function mapStateToProps({ comentarios }, { id }) {
-
-  const comentario = comentarios[id]
+function mapStateToProps({ comentario }, { idC }) {
   return {
-    comentario: comentarios
-      ? formatComentario(comentario)
+    comentario: comentario[idC]
+      ? formatComentario(comentario[idC])
       : null
   }
 }

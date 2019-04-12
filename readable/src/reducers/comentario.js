@@ -1,4 +1,4 @@
-import { RECEIVE_COMENTARIO } from '../actions/Comments'
+import { RECEIVE_COMENTARIO } from '../actions/comentario'
 
 export default function posts(state = {}, action) {
     switch (action.type) {

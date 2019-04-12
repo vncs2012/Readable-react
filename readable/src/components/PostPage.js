@@ -1,33 +1,42 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { handleGetComentarios } from '../actions/Comments'
 import Post from './Post'
 import Comentario from './Comentario'
 import NewComentario from './NewComentario'
+
+import { handleGetComentarios } from '../actions/comentario'
 
 class PostPage extends Component {
     componentDidMount() {
         this.props.dispatch(handleGetComentarios(this.props.id))
     }
     render() {
-        const { id, comentariosIds } = this.props
-        console.log(this.propsW)
+        const { id, idsComentario } = this.props
         return (
             <div className=' justify-content-md-center'>
                 <Post id={id} />
+                
+                <ul className='dashboard-list'>
+                <li  key='new'>
                 <NewComentario />
-
-                <Comentario />
+                </li>
+                    {idsComentario.map((c) => (
+                        <li key={c}>
+                            <Comentario idC={c} />
+                        </li>
+                    ))}
+                </ul>
             </div>
         )
     }
 }
 
-function mapStateToProps({ Post }, props) {
+function mapStateToProps({ comentario }, props) {
     const { id } = props.match.params
-    const {comentario}= props
     return {
-        id
+        id,
+        idsComentario: Object.keys(comentario)
+            .sort((a, b) => comentario[b].timestamp >= comentario[a].timestamp)
     }
 }
 

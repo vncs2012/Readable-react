@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom'
 
@@ -17,7 +15,7 @@ class NewComentario extends Component {
         e.preventDefault()
 
         const { text, author } = this.state
-        const { dispatch, id } = this.props
+        const {  id } = this.props
         const dados = {
             timestamp: '',
             body: text,

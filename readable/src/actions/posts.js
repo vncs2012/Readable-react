@@ -1,5 +1,3 @@
-import { showLoading, hideLoading } from 'react-redux-loading'
-
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const RECEIVE_POSTS_ID = 'RECEIVE_POSTS_ID'
 

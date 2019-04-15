@@ -4,6 +4,10 @@ export function formatDate(timestamp) {
   return d.toLocaleDateString() + ' ' + time.substr(0, 5) + ":" + time.slice(-2)
 }
 
+export function generateUID () {
+  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+}
+
 export function formatPost(post) {
   const { id, timestamp, title, body, author, category, voteScore, commentCount } = post
 

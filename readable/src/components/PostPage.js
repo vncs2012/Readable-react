@@ -18,7 +18,7 @@ class PostPage extends Component {
                 
                 <ul className='dashboard-list'>
                 <li  key='new'>
-                <NewComentario />
+                <NewComentario id={id} />
                 </li>
                     {idsComentario.map((c) => (
                         <li key={c}>

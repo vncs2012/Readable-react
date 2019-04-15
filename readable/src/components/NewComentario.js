@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom'
+import { handleAddComentario } from '../actions/comentario'
+import {generateUID} from '../utils/helpers'
 
 // import { Container } from './styles';
 
@@ -11,19 +13,36 @@ class NewComentario extends Component {
         author: '',
         toHome: false,
     }
+    handleChangeText = (e) => {
+        const text = e.target.value
+
+        this.setState(() => ({
+            text
+        }))
+    }
+    handleChangeAuthor = (e) => {
+        const author = e.target.value
+
+        this.setState(() => ({
+            author
+        }))
+    }
+
+
     handleSubmit = (e) => {
         e.preventDefault()
 
         const { text, author } = this.state
-        const {  id } = this.props
+        const { dispatch,id } = this.props
         const dados = {
-            timestamp: '',
+            id: generateUID(),
+            timestamp: Date.now(),
             body: text,
             author: author,
             parentId: id
         }
         console.log(dados)
-        //   dispatch(handleAddTweet(text, id))
+        dispatch(handleAddComentario(dados))
 
         this.setState(() => ({
             text: '',
@@ -32,11 +51,10 @@ class NewComentario extends Component {
         }))
     }
     render() {
-
-        const { text, toHome } = this.state
+        const { text, toHome, author } = this.state
 
         if (toHome === true) {
-            return <Redirect to='/' />
+               // return <Redirect to='posts/'+id />
         }
         return (
 
@@ -45,25 +63,28 @@ class NewComentario extends Component {
                     <h5 className='card-title'>New Comentario</h5>
                     <form className='new-tweet' onSubmit={this.handleSubmit}>
                         <div className="form-group">
-                            <input className="form-control form-control-sm" type="text" placeholder='enter your name'></input>
+                            <input className="form-control form-control-sm" value={author} type="text" onChange={this.handleChangeAuthor} placeholder='enter your name'></input>
                         </div>
-                        <textarea className="form-control" 
+                        <textarea className="form-control"
                             placeholder="What are you thinking about post?"
-                            //value={text}
-                            // onChange={this.handleChange}
+                            value={text}
+                            onChange={this.handleChangeText}
                             className='textarea'
                             maxLength={280}
                         />
-                        <button type="button" className="btn btn-primary">Primary</button>
+                        <button type="submit" className="btn btn-primary">Primary</button>
                     </form>
                 </div>
             </div>
         )
     }
 }
-
-const mapStateToProps = state => ({});
-
+function mapStateToProps({ }, props) {
+    const { id } = props
+    return {
+        id
+    }
+}
 // const mapDispatchToProps = dispatch =>
 //   bindActionCreators(Actions, dispatch);
 

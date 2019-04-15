@@ -25,6 +25,13 @@ export function getComentarios(id) {
     .then(res => res.json())
     .then(data => data)
 }
+export function _saveComentario(obj){
+  return fetch(api+'comments',
+  { mode: 'cors', method: 'post', headers,body: obj})
+   .then(res => res.json())
+   .then(data => data)
+}
+
 
 export function getInitialData() {
   return Promise.all([

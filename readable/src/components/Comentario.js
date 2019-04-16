@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { formatComentario, formatDate } from '../utils/helpers'
 import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti/index'
-import { withRouter } from 'react-router-dom'
 
 class Comentario extends Component {
 
@@ -42,4 +41,4 @@ function mapStateToProps({ comentario }, { idC }) {
       : null
   }
 }
-export default withRouter(connect(mapStateToProps)(Comentario))
+export default connect(mapStateToProps)(Comentario)

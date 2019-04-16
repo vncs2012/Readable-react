@@ -6,6 +6,7 @@ if (!token)
 
 const headers = {
   'Accept': 'application/json',
+  'Content-Type': 'application/json',
   'Authorization': token
 }
 
@@ -18,18 +19,18 @@ function getAllPosts() {
   return fetch(`${api}posts`, { method: 'GET', headers })
     .then(res => res.json())
     .then(data => data)
-} 
+}
 export function getComentarios(id) {
-  return fetch(api+'posts/'+id+'/comments',
-   { mode: 'cors', method: 'get', headers })
+  return fetch(api + 'posts/' + id + '/comments',
+    { method: 'get', headers })
     .then(res => res.json())
     .then(data => data)
 }
-export function _saveComentario(obj){
-  return fetch(api+'comments',
-  { mode: 'cors', method: 'post', headers,body: obj})
-   .then(res => res.json())
-   .then(data => data)
+export function _saveComentario(obj) {
+  return fetch(api + 'comments',
+    { method: 'post', headers, body: JSON.stringify(obj) })
+    .then(res => res.json())
+    .then(data => data)
 }
 
 

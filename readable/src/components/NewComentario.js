@@ -54,7 +54,7 @@ class NewComentario extends Component {
         const { text, toHome, author } = this.state
 
         if (toHome === true) {
-               // return <Redirect to='posts/'+id />
+            return <Redirect to='/' />
         }
         return (
 

@@ -23,6 +23,7 @@ class App extends Component {
               : <div>
                 <Route path='/' exact component={Dashboard} />
                 <Route path='/posts/:id' component={PostPage} />
+                <Route path='/react/posts' component={Dashboard} />
               </div>}
           </div>
         </Fragment>

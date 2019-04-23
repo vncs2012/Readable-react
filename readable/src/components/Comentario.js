@@ -4,8 +4,6 @@ import { formatComentario, formatDate } from '../utils/helpers'
 import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti/index'
 
 class Comentario extends Component {
-
-
   handleLike = (e) => {
     e.preventDefault()
 
@@ -20,6 +18,7 @@ class Comentario extends Component {
     } = comentario
     return (
       <div className="card" >
+      {parentId}
         <div className="card-body">
           <h6 className="card-subtitle mb-2 text-muted">
             author: {author} - {formatDate(timestamp)}</h6>
@@ -34,10 +33,10 @@ class Comentario extends Component {
     )
   }
 }
-function mapStateToProps({ comentario }, { idC }) {
+function mapStateToProps({ comentario }, { idC,idp }) {
   return {
     comentario: comentario[idC]
-      ? formatComentario(comentario[idC])
+      ? formatComentario(comentario[idC],idp)
       : null
   }
 }

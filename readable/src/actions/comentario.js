@@ -4,16 +4,17 @@ import { showLoading, hideLoading } from 'react-redux-loading'
 export const RECEIVE_COMENTARIO = 'RECEIVE_COMENTARIO'
 export const ADD_COMENTARIO = 'ADD_COMENTARIO'
 
-function receiveComentario(comentario) {
+function receiveComentario(comentario,id) {
     return {
         type: RECEIVE_COMENTARIO,
         comentario,
+        id,
     }
 }
 function saveComentario(comentario) {
     return {
         type: ADD_COMENTARIO,
-        comentario,
+        comentario
     }
 }
 
@@ -21,7 +22,7 @@ export function handleGetComentarios(id) {
     return (dispatch, getState) => {
         dispatch(showLoading())
         return getComentarios(id)
-            .then((comentario) => dispatch(receiveComentario(comentario)))
+            .then((comentario) => dispatch(receiveComentario(comentario,id)))
             .then(() => dispatch(hideLoading()))
     }
 }

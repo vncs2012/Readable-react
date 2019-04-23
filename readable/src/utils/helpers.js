@@ -16,7 +16,7 @@ export function formatPost(post) {
   }
 
 }
-export function formatComentario(Comentario) {
+export function formatComentario(Comentario,idp) {
   const { id, parentId, timestamp, body, author, voteScore, deleted, parentDeleted } = Comentario
 
   return {

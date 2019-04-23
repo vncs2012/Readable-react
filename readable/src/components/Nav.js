@@ -4,11 +4,6 @@ import { NavLink, withRouter } from 'react-router-dom'
 
 class Nav extends Component {
   render() {
-    const { categoria } = this.props
-
-    if (categoria === null) {
-      return <p>This Tweet doesn't existd</p>
-    }
     return (
       <nav >
         <ul className="nav justify-content-center">

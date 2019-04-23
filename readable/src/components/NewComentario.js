@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom'
 import { handleAddComentario } from '../actions/comentario'
 import {generateUID} from '../utils/helpers'
-
-// import { Container } from './styles';
+import { handleGetComentarios } from '../actions/comentario'
+import { handleInitialData } from '../actions/shared'
 
 class NewComentario extends Component {
 
@@ -41,9 +41,9 @@ class NewComentario extends Component {
             author: author,
             parentId: id
         }
-        console.log(dados)
         dispatch(handleAddComentario(dados))
-
+        dispatch(handleInitialData())
+        dispatch(handleGetComentarios(id))
         this.setState(() => ({
             text: '',
             author: '',
@@ -54,7 +54,7 @@ class NewComentario extends Component {
         const { text, toHome, author } = this.state
 
         if (toHome === true) {
-            return <Redirect to='/' />
+            return window.reload()
         }
         return (
 

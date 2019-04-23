@@ -7,25 +7,26 @@ import NewComentario from './NewComentario'
 import { handleGetComentarios } from '../actions/comentario'
 
 class PostPage extends Component {
+    state = {
+        comentarios: []
+    }
     componentDidMount() {
         this.props.dispatch(handleGetComentarios(this.props.id))
     }
+ 
     render() {
-
         const { id, idsComentario } = this.props
-        console.log(id)
         return (
             <div className=' justify-content-md-center'>
                 <Post id={id} />
-
                 <ul className='dashboard-list'>
                     <li key='new'>
                         <NewComentario id={id} />
                     </li>
                     {idsComentario.map((c) => (
-                        <li key={c}>
-                            <span>{c}-{id}</span>
-                            <Comentario idC={c} />
+                        <li key={c.id}>
+                            <span>{id}</span>
+                            <Comentario idC={c.id} idp={id} />
                         </li>
                     ))}
                 </ul>
@@ -38,8 +39,7 @@ function mapStateToProps({ comentario }, props) {
     const { id } = props.match.params
     return {
         id,
-        idsComentario: !comentario[id] ? [] : Object.keys(comentario[id])
-            .sort((a, b) => comentario[b].timestamp >= comentario[a].timestamp)
+        idsComentario: !Object.values(comentario).filter(f => f.parentId === id) ? [] : Object.values(comentario).filter(f => f.parentId === id) 
     }
 }
 

@@ -18,7 +18,6 @@ class Comentario extends Component {
     } = comentario
     return (
       <div className="card" >
-      {parentId}
         <div className="card-body">
           <h6 className="card-subtitle mb-2 text-muted">
             author: {author} - {formatDate(timestamp)}</h6>
@@ -33,10 +32,10 @@ class Comentario extends Component {
     )
   }
 }
-function mapStateToProps({ comentario }, { idC,idp }) {
+function mapStateToProps({ comentario }, { idC}) {
   return {
     comentario: comentario[idC]
-      ? formatComentario(comentario[idC],idp)
+      ? formatComentario(comentario[idC])
       : null
   }
 }

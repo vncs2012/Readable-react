@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom'
 import { handleAddComentario } from '../actions/comentario'
-import {generateUID} from '../utils/helpers'
+import { generateUID } from '../utils/helpers'
 import { handleGetComentarios } from '../actions/comentario'
 import { handleInitialData } from '../actions/shared'
 
@@ -33,7 +33,7 @@ class NewComentario extends Component {
         e.preventDefault()
 
         const { text, author } = this.state
-        const { dispatch,id } = this.props
+        const { dispatch, id } = this.props
         const dados = {
             id: generateUID(),
             timestamp: Date.now(),

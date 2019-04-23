@@ -25,7 +25,6 @@ class PostPage extends Component {
                     </li>
                     {idsComentario.map((c) => (
                         <li key={c.id}>
-                            <span>{id}</span>
                             <Comentario idC={c.id} idp={id} />
                         </li>
                     ))}

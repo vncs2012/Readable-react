@@ -6,6 +6,7 @@ import Dashboard from './Dashboard'
 import LoadingBar from 'react-redux-loading'
 import Nav from './Nav'
 import PostPage from './PostPage'
+import {IoIosAddCircleOutline } from 'react-icons/io/index'
 
 class App extends Component {
   componentDidMount() {

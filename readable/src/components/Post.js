@@ -1,13 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { formatPost, formatDate } from '../utils/helpers'
-import { TiArrowBackOutline, TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti/index'
+import { TiArrowBackOutline } from 'react-icons/ti/index'
 import { Link, withRouter } from 'react-router-dom'
+import { MdThumbUp, MdThumbDown } from 'react-icons/md/index'
+import {handlePostLike } from '../actions/posts'
+import { handleInitialData } from '../actions/shared'
 
 class Post extends Component {
-    handleLike = (e) => {
-        e.preventDefault()
-
+    handleLike = (e,opt) => {
+        e.preventDefault()      
+        const { dispatch, id  } = this.props
+        console.log(opt,'---',id)
+        dispatch(handlePostLike(id,opt))
+        dispatch(handleInitialData())
     }
     render() {
         const { post } = this.props
@@ -30,8 +36,8 @@ class Post extends Component {
                             <TiArrowBackOutline className='tweet-icon' />
                         </Link>
                         <span>{commentCount !== 0 ? commentCount : 0}</span>
-                        <TiArrowSortedUp className='tweet-icon' />
-                        <TiArrowSortedDown className='tweet-icon' />
+                        <MdThumbUp className='tweet-icon' onClick={(e) =>this.handleLike(e,'upVote')} values='te' />
+                        <MdThumbDown className='tweet-icon' onClick={(e) =>this.handleLike(e,'downVote')} values='te' />
                         <span>{voteScore !== 0 ? voteScore : 0}</span>
                     </div>
                 </div>

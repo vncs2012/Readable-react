@@ -38,7 +38,7 @@ function mapStateToProps({ comentario }, props) {
     const { id } = props.match.params
     return {
         id,
-        idsComentario: !Object.values(comentario).filter(f => f.parentId === id) ? [] : Object.values(comentario).filter(f => f.parentId === id) 
+        idsComentario: !Object.values(comentario).filter(f => f.parentId === id ) ? [] : Object.values(comentario).filter(f => f.parentId === id && !f.deleted) 
     }
 }
 

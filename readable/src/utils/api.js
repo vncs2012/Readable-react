@@ -44,7 +44,12 @@ export function _comentarioLike(id,option) {
     .then(res => res.json())
     .then(data => data)
 }
-
+export function delComentarios(id) {
+  return fetch(api + 'comments/'+id,
+    { method: 'DELETE', headers })
+    .then(res => res.json())
+    .then(data => data)
+}
 
 export function getInitialData() {
   return Promise.all([

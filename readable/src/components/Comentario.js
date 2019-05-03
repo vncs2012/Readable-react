@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { formatComentario, formatDate } from '../utils/helpers'
 import { MdThumbUp, MdThumbDown, MdClear, MdBrush } from 'react-icons/md/index'
-import { handleComentarioLike, handleGetComentarios, handleDelComentarios } from '../actions/comentario'
+import { handleComentarioLike, handleGetComentarios, handleDelComentarios,handleEditComentario } from '../actions/comentario'
 import { handleInitialData } from '../actions/shared'
+import { generateUID } from '../utils/helpers'
+import { handleAddComentario } from '../actions/comentario'
 
 class Comentario extends Component {
   state = {
@@ -43,13 +45,41 @@ class Comentario extends Component {
   handleEdit = (e) => {
     e.preventDefault()
     const { body, author } = this.props
-    console.log( this.props)
     this.setState({
       edit: true,
       body,
       author
     })
   }
+  handleEditCanc = (e) => {
+    e.preventDefault()
+    const { body, author } = this.props
+    this.setState({
+      edit: false,
+      body,
+      author
+    })
+  }
+  handleSubmitEdit = (e) => {
+    e.preventDefault()
+
+    const { text, author } = this.state
+    const { dispatch, idC, id } = this.props
+    console.log(this.props)
+    const dados = {
+      timestamp: Date.now(),
+      body: text
+    }
+    dispatch(handleEditComentario(dados, idC))
+    dispatch(handleInitialData())
+    dispatch(handleGetComentarios(id))
+    this.setState(() => ({
+      body: '',
+      author: '',
+      edit: false,
+    }))
+  }
+
   render() {
     const { comentario } = this.props
     if (comentario === null) {
@@ -79,10 +109,10 @@ class Comentario extends Component {
             <div>
               <div className="card">
                 <div className="card-body">
-                  <h5 className='card-title'>Edite Comentario</h5>
-                  <form className='new-tweet' onSubmit={this.handleSubmit}>
+                  <h5 className='card-title'>Edite Comentario  <MdClear style={{ float: "right" }} className='tweet-icon' onClick={(e) => this.handleEditCanc(e)} /></h5>
+                  <form className='new-tweet' onSubmit={this.handleSubmitEdit}>
                     <div className="form-group">
-                      <input className="form-control form-control-sm" value={author} type="text" onChange={this.handleChangeAuthor} placeholder='enter your name'></input>
+                      <input className="form-control form-control-sm"  value={author} type="text" onChange={this.handleChangeAuthor} placeholder='enter your name'></input>
                     </div>
                     <textarea className="form-control"
                       placeholder="What are you thinking about post?"
@@ -90,7 +120,7 @@ class Comentario extends Component {
                       onChange={this.handleChangeText}
                       className='textarea'
                     />
-                    <button type="submit" className="btn btn-primary">Primary</button>
+                    <button type="submit" className="btn btn-primary">Editar</button>
                   </form>
                 </div>
               </div>

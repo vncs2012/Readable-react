@@ -1,10 +1,11 @@
-import { getComentarios,_saveComentario,_comentarioLike,delComentarios } from '../utils/api'
+import { getComentarios,_saveComentario,_comentarioLike,delComentarios,_EditComentario } from '../utils/api'
 import { showLoading, hideLoading } from 'react-redux-loading'
 
 export const RECEIVE_COMENTARIO = 'RECEIVE_COMENTARIO'
 export const ADD_COMENTARIO = 'ADD_COMENTARIO'
 export const COMENTARIO_LIKE = 'COMENTARIO_LIKE'
 export const DEL_COMENTARIO = 'DEL_COMENTARIO'
+export const EDIT_COMENTARIO = 'EDIT_COMENTARIO'
 
 function receiveComentario(comentario,id) {
     return {
@@ -16,6 +17,12 @@ function receiveComentario(comentario,id) {
 function saveComentario(comentario) {
     return {
         type: ADD_COMENTARIO,
+        comentario
+    }
+}
+function editComentario(comentario) {
+    return {
+        type: EDIT_COMENTARIO,
         comentario
     }
 }
@@ -52,6 +59,14 @@ export function handleAddComentario(obj){
         dispatch(showLoading())
         return _saveComentario(obj)
             .then((comentario) => dispatch(saveComentario(comentario)))
+            .then(() => dispatch(hideLoading()))
+    } 
+}
+export function handleEditComentario(obj){
+    return (dispatch) => {
+        dispatch(showLoading())
+        return _EditComentario(obj)
+            .then((comentario) => dispatch(editComentario(comentario)))
             .then(() => dispatch(hideLoading()))
     } 
 }

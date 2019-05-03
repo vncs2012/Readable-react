@@ -32,7 +32,7 @@ export function _saveComentario(obj) {
     .then(res => res.json())
     .then(data => data)
 }
-export function _EditComentario(id, obj) {
+export function _EditComentario(obj,id) {
   return fetch(api + 'comments/' + id,
     { method: 'PUT', headers, body: JSON.stringify(obj) })
     .then(res => res.json())

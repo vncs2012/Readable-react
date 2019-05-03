@@ -62,10 +62,10 @@ export function handleAddComentario(obj){
             .then(() => dispatch(hideLoading()))
     } 
 }
-export function handleEditComentario(obj){
+export function handleEditComentario(obj,id){
     return (dispatch) => {
         dispatch(showLoading())
-        return _EditComentario(obj)
+        return _EditComentario(obj,id)
             .then((comentario) => dispatch(editComentario(comentario)))
             .then(() => dispatch(hideLoading()))
     } 

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { formatComentario, formatDate } from '../utils/helpers'
 import { MdThumbUp, MdThumbDown, MdClear, MdBrush } from 'react-icons/md/index'
-import { handleComentarioLike, handleGetComentarios, handleDelComentarios,handleEditComentario } from '../actions/comentario'
+import { handleComentarioLike, handleGetComentarios, handleDelComentarios, handleEditComentario } from '../actions/comentario'
 import { handleInitialData } from '../actions/shared'
 import { generateUID } from '../utils/helpers'
 import { handleAddComentario } from '../actions/comentario'
@@ -47,8 +47,8 @@ class Comentario extends Component {
     const { body, author } = this.props
     this.setState({
       edit: true,
-      body,
-      author
+      body: body,
+      author: author
     })
   }
   handleEditCanc = (e) => {
@@ -63,15 +63,16 @@ class Comentario extends Component {
   handleSubmitEdit = (e) => {
     e.preventDefault()
 
-    const { text, author } = this.state
     const { dispatch, idC, id } = this.props
-    console.log(this.props)
+    console.log(idC)
     const dados = {
       timestamp: Date.now(),
-      body: text
+      body: this.state.body
     }
+    console.log(this.state)
     dispatch(handleEditComentario(dados, idC))
     dispatch(handleInitialData())
+    dispatch(handleGetComentarios(id))
     dispatch(handleGetComentarios(id))
     this.setState(() => ({
       body: '',
@@ -86,7 +87,6 @@ class Comentario extends Component {
       return <p>This Comment doesn't existd</p>
     }
     const { timestamp, body, author, voteScore } = comentario
-    console.log(this.state.body)
     return (
       <div>
         {this.state.edit === false ? (
@@ -112,13 +112,13 @@ class Comentario extends Component {
                   <h5 className='card-title'>Edite Comentario  <MdClear style={{ float: "right" }} className='tweet-icon' onClick={(e) => this.handleEditCanc(e)} /></h5>
                   <form className='new-tweet' onSubmit={this.handleSubmitEdit}>
                     <div className="form-group">
-                      <input className="form-control form-control-sm"  value={author} type="text" onChange={this.handleChangeAuthor} placeholder='enter your name'></input>
+                      <input className="form-control form-control-sm" defaultValue={author} onChange={this.handleChangeAuthor} type="text" placeholder='enter your name'></input>
                     </div>
                     <textarea className="form-control"
                       placeholder="What are you thinking about post?"
-                      value={body}
-                      onChange={this.handleChangeText}
+                      defaultValue={body}
                       className='textarea'
+                      onChange={this.handleChangeText}
                     />
                     <button type="submit" className="btn btn-primary">Editar</button>
                   </form>

@@ -1,4 +1,4 @@
-import { RECEIVE_COMENTARIO, COMENTARIO_LIKE,DEL_COMENTARIO } from '../actions/comentario'
+import { RECEIVE_COMENTARIO, COMENTARIO_LIKE,DEL_COMENTARIO,EDIT_COMENTARIO } from '../actions/comentario'
 
 export default function comentario(state = {}, action) {
     switch (action.type) {
@@ -13,6 +13,11 @@ export default function comentario(state = {}, action) {
                 ...action.comentario
             }
             case DEL_COMENTARIO:
+            return {
+                ...state,
+                ...action.comentario
+            }
+            case EDIT_COMENTARIO:
             return {
                 ...state,
                 ...action.comentario

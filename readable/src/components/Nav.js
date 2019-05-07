@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { NavLink, withRouter } from 'react-router-dom'
+import { NavLink, withRouter, Link } from 'react-router-dom'
+import { MdAdd } from "react-icons/md/index";
 
 class Nav extends Component {
   render() {
@@ -28,6 +29,9 @@ class Nav extends Component {
           </NavLink>
           </li>
         </ul>
+        <Link  to="/add">
+          <MdAdd style={{ float: "right" }} className='tweet-icon' />
+        </Link>
       </nav>
     )
   }

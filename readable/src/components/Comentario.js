@@ -4,8 +4,7 @@ import { formatComentario, formatDate } from '../utils/helpers'
 import { MdThumbUp, MdThumbDown, MdClear, MdBrush } from 'react-icons/md/index'
 import { handleComentarioLike, handleGetComentarios, handleDelComentarios, handleEditComentario } from '../actions/comentario'
 import { handleInitialData } from '../actions/shared'
-import { generateUID } from '../utils/helpers'
-import { handleAddComentario } from '../actions/comentario'
+
 
 class Comentario extends Component {
   state = {

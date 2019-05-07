@@ -3,16 +3,16 @@ import { connect } from 'react-redux'
 import { formatPost, formatDate } from '../utils/helpers'
 import { TiArrowBackOutline } from 'react-icons/ti/index'
 import { Link, withRouter } from 'react-router-dom'
-import { MdThumbUp, MdThumbDown } from 'react-icons/md/index'
-import {handlePostLike } from '../actions/posts'
+import { MdThumbUp, MdThumbDown, MdClear, MdBrush } from 'react-icons/md/index'
+import { handlePostLike } from '../actions/posts'
 import { handleInitialData } from '../actions/shared'
 
 class Post extends Component {
-    handleLike = (e,opt) => {
-        e.preventDefault()      
-        const { dispatch, id  } = this.props
-        console.log(opt,'---',id)
-        dispatch(handlePostLike(id,opt))
+    handleLike = (e, opt) => {
+        e.preventDefault()
+        const { dispatch, id } = this.props
+        console.log(opt, '---', id)
+        dispatch(handlePostLike(id, opt))
         dispatch(handleInitialData())
     }
     render() {
@@ -26,18 +26,19 @@ class Post extends Component {
         return (
             <div className="card" >
                 <div className="card-body">
-                    <h5 className="card-title"><strong>{title}</strong></h5>
-                    <h6 className="card-subtitle mb-2 text-muted">author: {author} -
-                     <Link to={`/${category}/posts`}>{category}</Link> -
-                    {formatDate(timestamp)}</h6>
+                    <h5 className="card-title"><strong>{title}</strong>
+                        <MdClear style={{ float: "right" }} className='tweet-icon' onClick={(e) => this.handleDel(e)} />
+                        <MdBrush style={{ float: "right" }} className='tweet-icon' onClick={(e) => this.handleEdit(e)} />
+                    </h5>
+                    <h6 className="card-subtitle mb-2 text-muted">author: {author} - <Link to={`/${category}/posts`}>{category}</Link> - {formatDate(timestamp)}</h6>
                     <p className="card-text">{body}</p>
                     <div className='card-link'>
                         <Link to={`/posts/${id}`}>
                             <TiArrowBackOutline className='tweet-icon' />
                         </Link>
                         <span>{commentCount !== 0 ? commentCount : 0}</span>
-                        <MdThumbUp className='tweet-icon' onClick={(e) =>this.handleLike(e,'upVote')} values='te' />
-                        <MdThumbDown className='tweet-icon' onClick={(e) =>this.handleLike(e,'downVote')} values='te' />
+                        <MdThumbUp className='tweet-icon' onClick={(e) => this.handleLike(e, 'upVote')} values='te' />
+                        <MdThumbDown className='tweet-icon' onClick={(e) => this.handleLike(e, 'downVote')} values='te' />
                         <span>{voteScore !== 0 ? voteScore : 0}</span>
                     </div>
                 </div>

@@ -6,7 +6,7 @@ import Dashboard from './Dashboard'
 import LoadingBar from 'react-redux-loading'
 import Nav from './Nav'
 import PostPage from './PostPage'
-import {IoIosAddCircleOutline } from 'react-icons/io/index'
+import NewPost from './NewPost'
 
 class App extends Component {
   componentDidMount() {
@@ -25,6 +25,7 @@ class App extends Component {
                 <Route path='/' exact component={Dashboard} />
                 <Route path='/posts/:id' component={PostPage} />
                 <Route path='/react/posts' component={Dashboard} />
+                <Route path='/add' component={NewPost} />
               </div>}
           </div>
         </Fragment>

@@ -10,7 +10,7 @@ const headers = {
   'Authorization': token
 }
 
-function getAllCategoria() {
+export function getAllCategoria() {
   return fetch(`${api}categories`, { headers })
     .then(res => res.json())
     .then(data => data.categories)
@@ -32,7 +32,7 @@ export function _saveComentario(obj) {
     .then(res => res.json())
     .then(data => data)
 }
-export function _EditComentario(obj,id) {
+export function _EditComentario(obj, id) {
   return fetch(api + 'comments/' + id,
     { method: 'PUT', headers, body: JSON.stringify(obj) })
     .then(res => res.json())

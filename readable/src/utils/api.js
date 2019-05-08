@@ -44,6 +44,13 @@ export function _postLike(id, option) {
     .then(res => res.json())
     .then(data => data)
 }
+export function _savePost(obj) {
+  return fetch(api + 'posts',
+    { method: 'POST', headers, body: JSON.stringify(obj) })
+    .then(res => res.json())
+    .then(data => data)
+}
+
 export function _comentarioLike(id, option) {
   return fetch(api + 'comments/' + id,
     { method: 'POST', headers, body: JSON.stringify({ option }) })

@@ -29,7 +29,7 @@ class Nav extends Component {
           </NavLink>
           </li>
         </ul>
-        <Link  to="/add">
+        <Link to="/add">
           <MdAdd style={{ float: "right" }} className='tweet-icon' />
         </Link>
       </nav>

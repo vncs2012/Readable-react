@@ -1,9 +1,10 @@
-import { _postLike } from '../utils/api'
+import { _postLike, _savePost } from '../utils/api'
 import { showLoading, hideLoading } from 'react-redux-loading'
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const RECEIVE_POSTS_ID = 'RECEIVE_POSTS_ID'
 export const POSTS_LIKE = 'POSTS_LIKE'
+export const POSTS_INSERT = 'POSTS_INSERT'
 
 export function receivePosts(posts) {
     return {
@@ -24,8 +25,23 @@ function postLike(post) {
         post,
     }
 }
+function postInsert(post) {
+    return {
+        type: POSTS_INSERT,
+        post,
+    }
+}
 
-export function handlePostLike(id, opt) {
+export function handleSalvePost(opt) {
+    return (dispatch) => {
+        dispatch(showLoading())
+        return _savePost(opt)
+            .then((post) => dispatch(postInsert(post)))
+            .then(() => dispatch(hideLoading()))
+    }
+}
+
+export function handlePostLike(id,opt) {
     return (dispatch) => {
         dispatch(showLoading())
         return _postLike(id, opt)

@@ -63,12 +63,10 @@ class Comentario extends Component {
     e.preventDefault()
 
     const { dispatch, idC, id } = this.props
-    console.log(idC)
     const dados = {
       timestamp: Date.now(),
       body: this.state.body
     }
-    console.log(this.state)
     dispatch(handleEditComentario(dados, idC))
     dispatch(handleInitialData())
     dispatch(handleGetComentarios(id))

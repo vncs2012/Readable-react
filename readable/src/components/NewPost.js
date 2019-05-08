@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { handleAddTweet } from '../actions/tweets'
+import { handleInitialData } from '../actions/shared'
+import { handleSalvePost } from '../actions/posts'
 import { Redirect } from 'react-router-dom'
-import { handleInitialCategoria } from '../actions/categoria'
+import { generateUID } from '../utils/helpers'
 
-class NewTweet extends Component {
+class NewPost extends Component {
     state = {
         body: '',
-        title:'',
-        author:'',
+        title: '',
+        author: '',
+        categoria: '',
         toHome: false,
     }
     handleChangeBody = (e) => {
@@ -32,31 +34,49 @@ class NewTweet extends Component {
             title
         }))
     }
+    handleChangeCategoria = (e) => {
+        const categoria = e.target.value
+        console.log(categoria)
+        this.setState(() => ({
+            categoria
+        }))
+    }
     handleSubmit = (e) => {
         e.preventDefault()
 
-        const { text } = this.state
-        const { dispatch, id } = this.props
-
-        dispatch(handleAddTweet(text, id))
-
+        const { body, title, author, categoria } = this.state
+        const { dispatch } = this.props
+        const dados = {
+            id: generateUID(),
+            title: title,
+            timestamp: Date.now(),
+            body: body,
+            author: author,
+            category: categoria
+        }
+        console.log(dados)
+        dispatch(handleSalvePost(dados))
+        dispatch(handleInitialData())
         this.setState(() => ({
-            text: '',
-            toHome: id ? false : true,
+            body: '',
+            title: '',
+            author: '',
+            category: '',
+            toHome: true,
         }))
     }
     render() {
-        const { body, toHome, author,title } = this.state
+        const { body, toHome, author, title } = this.state
+        const { categoria } = this.props
 
         if (toHome === true) {
-            return <Redirect to='/' />
+          //  return <Redirect to='/' />
         }
-        console.log(this.props)
         return (
             <div className="card">
                 <div className="card-body">
                     <h5 className='card-title'>Novo Post</h5>
-                    <form className='new-tweet' onSubmit={this.handleSubmitEdit}>
+                    <form className='new-tweet' onSubmit={this.handleSubmit}>
                         <div className="form-group">
                             <input className="form-control form-control-sm" defaultValue={title} onChange={this.handleChangeTitle} type="text" placeholder='Titulo do Post'></input>
                         </div>
@@ -64,11 +84,11 @@ class NewTweet extends Component {
                             <input className="form-control form-control-sm" defaultValue={author} onChange={this.handleChangeAuthor} type="text" placeholder='Autor do Post'></input>
                         </div>
                         <div className="form-group">
-                            <select className="form-control form-control-sm" placeholder='Autor do Post'>
+                            <select className="form-control form-control-sm" onChange={this.handleChangeCategoria} >
                                 <option>Selecione uma Categoria</option>
-                                <option>Teste</option>
-                                <option>Teste</option>
-                                <option>Teste</option>
+                                {categoria.map((c) => (
+                                    <option key={c.path} value={c.path}>{c.name}</option>
+                                ))}
                             </select>
                         </div>
                         <textarea className="form-control"
@@ -77,7 +97,7 @@ class NewTweet extends Component {
                             className='textarea'
                             onChange={this.handleChangeBody}
                         />
-                        <button type="submit" className="btn btn-primary">Editar</button>
+                        <button type="submit" className="btn btn-primary">Postar</button>
                     </form>
                 </div>
             </div>
@@ -86,7 +106,7 @@ class NewTweet extends Component {
 }
 function mapStateToProps({ categoria }) {
     return {
-      //  categoria = this.dispatch(handleInitialCategoria())
+        categoria: Object.values(categoria)
     }
 }
-export default connect(mapStateToProps)(NewTweet)
+export default connect(mapStateToProps)(NewPost)

@@ -13,7 +13,7 @@ class PostPage extends Component {
     componentDidMount() {
         this.props.dispatch(handleGetComentarios(this.props.id))
     }
- 
+
     render() {
         const { id, idsComentario } = this.props
         return (
@@ -38,7 +38,7 @@ function mapStateToProps({ comentario }, props) {
     const { id } = props.match.params
     return {
         id,
-        idsComentario: !Object.values(comentario).filter(f => f.parentId === id ) ? [] : Object.values(comentario).filter(f => f.parentId === id && !f.deleted) 
+        idsComentario: !Object.values(comentario).filter(f => f.parentId === id) ? [] : Object.values(comentario).filter(f => f.parentId === id && !f.deleted)
     }
 }
 

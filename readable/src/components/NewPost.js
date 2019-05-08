@@ -6,14 +6,30 @@ import { handleInitialCategoria } from '../actions/categoria'
 
 class NewTweet extends Component {
     state = {
-        text: '',
+        body: '',
+        title:'',
+        author:'',
         toHome: false,
     }
-    handleChange = (e) => {
-        const text = e.target.value
+    handleChangeBody = (e) => {
+        const body = e.target.value
 
         this.setState(() => ({
-            text
+            body
+        }))
+    }
+    handleChangeAuthor = (e) => {
+        const author = e.target.value
+
+        this.setState(() => ({
+            author
+        }))
+    }
+    handleChangeTitle = (e) => {
+        const title = e.target.value
+
+        this.setState(() => ({
+            title
         }))
     }
     handleSubmit = (e) => {
@@ -30,7 +46,7 @@ class NewTweet extends Component {
         }))
     }
     render() {
-        const { body, toHome, author } = this.state
+        const { body, toHome, author,title } = this.state
 
         if (toHome === true) {
             return <Redirect to='/' />
@@ -42,7 +58,7 @@ class NewTweet extends Component {
                     <h5 className='card-title'>Novo Post</h5>
                     <form className='new-tweet' onSubmit={this.handleSubmitEdit}>
                         <div className="form-group">
-                            <input className="form-control form-control-sm" defaultValue={author} onChange={this.handleChangeAuthor} type="text" placeholder='Titulo do Post'></input>
+                            <input className="form-control form-control-sm" defaultValue={title} onChange={this.handleChangeTitle} type="text" placeholder='Titulo do Post'></input>
                         </div>
                         <div className="form-group">
                             <input className="form-control form-control-sm" defaultValue={author} onChange={this.handleChangeAuthor} type="text" placeholder='Autor do Post'></input>
@@ -59,7 +75,7 @@ class NewTweet extends Component {
                             placeholder="What are you thinking about post?"
                             defaultValue={body}
                             className='textarea'
-                            onChange={this.handleChangeText}
+                            onChange={this.handleChangeBody}
                         />
                         <button type="submit" className="btn btn-primary">Editar</button>
                     </form>
@@ -70,7 +86,7 @@ class NewTweet extends Component {
 }
 function mapStateToProps({ categoria }) {
     return {
-        categoria = this.dispatch(handleInitialCategoria())
+      //  categoria = this.dispatch(handleInitialCategoria())
     }
 }
 export default connect(mapStateToProps)(NewTweet)

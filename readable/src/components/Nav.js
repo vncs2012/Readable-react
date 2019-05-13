@@ -14,17 +14,17 @@ class Nav extends Component {
           </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to='/react/posts' className="nav-link" activeClassName='active'>
+            <NavLink to='/react' className="nav-link" activeClassName='active'>
               React
           </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to='/redux/posts' className="nav-link" activeClassName='active'>
+            <NavLink to='/redux' className="nav-link" activeClassName='active'>
               Redux
           </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to='/udacity/posts' className="nav-link" activeClassName='active'>
+            <NavLink to='/udacity' className="nav-link" activeClassName='active'>
               Udacity
           </NavLink>
           </li>

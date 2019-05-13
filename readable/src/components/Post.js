@@ -4,7 +4,7 @@ import { formatPost, formatDate } from '../utils/helpers'
 import { TiArrowBackOutline } from 'react-icons/ti/index'
 import { Link, withRouter } from 'react-router-dom'
 import { MdThumbUp, MdThumbDown, MdClear, MdBrush } from 'react-icons/md/index'
-import { handlePostLike } from '../actions/posts'
+import { handlePostLike ,handleDeletePost} from '../actions/posts'
 import { handleInitialData } from '../actions/shared'
 
 class Post extends Component {
@@ -15,14 +15,15 @@ class Post extends Component {
         dispatch(handlePostLike(id, opt))
         dispatch(handleInitialData())
     }
+    handleDel = (e) => {
+        e.preventDefault()
+        const { dispatch, id } = this.props
+        dispatch(handleDeletePost(id))
+        dispatch(handleInitialData())
+    }
     render() {
         const { post } = this.props
-        if (post === null) {
-            return <p>This Tweet doesn't existd</p>
-        }
-        const {
-            id, timestamp, title, body, author, category, voteScore, commentCount
-        } = post
+        const { id, timestamp, title, body, author, category, voteScore, commentCount } = post
         return (
             <div className="card" >
                 <div className="card-body">
@@ -30,7 +31,7 @@ class Post extends Component {
                         <MdClear style={{ float: "right" }} className='tweet-icon' onClick={(e) => this.handleDel(e)} />
                         <MdBrush style={{ float: "right" }} className='tweet-icon' onClick={(e) => this.handleEdit(e)} />
                     </h5>
-                    <h6 className="card-subtitle mb-2 text-muted">author: {author} - <Link to={`/${category}/posts`}>{category}</Link> - {formatDate(timestamp)}</h6>
+                    <h6 className="card-subtitle mb-2 text-muted">author: {author} - <Link to={`/${category}`}>{category}</Link> - {formatDate(timestamp)}</h6>
                     <p className="card-text">{body}</p>
                     <div className='card-link'>
                         <Link to={`/posts/${id}`}>

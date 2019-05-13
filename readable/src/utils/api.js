@@ -63,7 +63,12 @@ export function delComentarios(id) {
     .then(res => res.json())
     .then(data => data)
 }
-
+export function _delPost(id) {
+  return fetch(api + 'posts/' + id,
+    { method: 'DELETE', headers })
+    .then(res => res.json())
+    .then(data => data)
+}
 export function getInitialData() {
   return Promise.all([
     getAllCategoria(),

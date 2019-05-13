@@ -24,7 +24,9 @@ class App extends Component {
               : <div>
                 <Route path='/' exact component={Dashboard} />
                 <Route path='/posts/:id' component={PostPage} />
-                <Route path='/react/posts' component={Dashboard} />
+                <Route path='/react' component={Dashboard} />
+                <Route path='/udacity' component={Dashboard} />
+                <Route path='/redux' component={Dashboard} />
                 <Route path='/add' component={NewPost} />
               </div>}
           </div>

@@ -70,7 +70,7 @@ class NewPost extends Component {
         const { categoria } = this.props
 
         if (toHome === true) {
-          //  return <Redirect to='/' />
+              return <Redirect to='/' />
         }
         return (
             <div className="card">

@@ -4,6 +4,7 @@ import { formatComentario, formatDate } from '../utils/helpers'
 import { MdThumbUp, MdThumbDown, MdClear, MdBrush } from 'react-icons/md/index'
 import { handleComentarioLike, handleGetComentarios, handleDelComentarios, handleEditComentario } from '../actions/comentario'
 import { handleInitialData } from '../actions/shared'
+import { Card } from 'react-bootstrap';
 
 
 class Comentario extends Component {
@@ -87,21 +88,17 @@ class Comentario extends Component {
     return (
       <div>
         {this.state.edit === false ? (
-          <div className="card" >
-            <div className="card-body">
-              <h6 className="card-subtitle mb-2 text-muted">
-                author: {author} - {formatDate(timestamp)}
-                <MdClear style={{ float: "right" }} className='tweet-icon' onClick={(e) => this.handleDel(e)} />
-                <MdBrush style={{ float: "right" }} className='tweet-icon' onClick={(e) => this.handleEdit(e)} />
-              </h6>
-              <p className="card-text">{body}</p>
-              <div className='card-link'>
-                <MdThumbUp className='tweet-icon' onClick={(e) => this.handleLike(e, 'upVote')} />
-                <MdThumbDown className='tweet-icon' onClick={(e) => this.handleLike(e, 'downVote')} />
-                <span>{voteScore !== 0 ? voteScore : 0}</span>
-              </div>
-            </div>
-          </div>
+          <Card bg="light">
+            <Card.Header> {author} - {formatDate(timestamp)}
+              <MdClear style={{ float: "right" }} className='tweet-icon' onClick={(e) => this.handleDel(e)} />
+              <MdBrush style={{ float: "right" }} className='tweet-icon' onClick={(e) => this.handleEdit(e)} />
+            </Card.Header>
+            <Card.Body>
+              <Card.Text>{body}</Card.Text>
+                <MdThumbUp className='tweet-icon' onClick={(e) => this.handleLike(e, 'upVote')} />&nbsp;&nbsp;   
+                <MdThumbDown className='tweet-icon' onClick={(e) => this.handleLike(e, 'downVote')} /> <span>{voteScore !== 0 ? voteScore : 0}</span>
+            </Card.Body>
+          </Card>
         ) : (
             <div>
               <div className="card">

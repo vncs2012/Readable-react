@@ -1,4 +1,4 @@
-import { _postLike, _savePost ,_delPost} from '../utils/api'
+import { _postLike, _savePost, _delPost, _EditPost } from '../utils/api'
 import { showLoading, hideLoading } from 'react-redux-loading'
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
@@ -6,6 +6,7 @@ export const RECEIVE_POSTS_ID = 'RECEIVE_POSTS_ID'
 export const POSTS_LIKE = 'POSTS_LIKE'
 export const POSTS_INSERT = 'POSTS_INSERT'
 export const DEL_POST = 'DEL_POST'
+export const EDIT_POST = 'EDIT_POST'
 
 export function receivePosts(posts) {
     return {
@@ -38,6 +39,12 @@ function postDelete(post) {
         post,
     }
 }
+function editPost(post) {
+    return {
+        type: EDIT_POST,
+        post,
+    }
+}
 
 export function handleSalvePost(opt) {
     return (dispatch) => {
@@ -48,7 +55,7 @@ export function handleSalvePost(opt) {
     }
 }
 
-export function handlePostLike(id,opt) {
+export function handlePostLike(id, opt) {
     return (dispatch) => {
         dispatch(showLoading())
         return _postLike(id, opt)
@@ -56,11 +63,19 @@ export function handlePostLike(id,opt) {
             .then(() => dispatch(hideLoading()))
     }
 }
-export function handleDeletePost(id){
+export function handleDeletePost(id) {
     return (dispatch) => {
         dispatch(showLoading())
         return _delPost(id)
             .then((post) => dispatch(postDelete(post)))
+            .then(() => dispatch(hideLoading()))
+    }
+}
+export function handleEditPost(obj, id) {
+    return (dispatch) => {
+        dispatch(showLoading())
+        return _EditPost(obj, id)
+            .then((post) => dispatch(editPost(post)))
             .then(() => dispatch(hideLoading()))
     }
 }

@@ -50,7 +50,12 @@ export function _savePost(obj) {
     .then(res => res.json())
     .then(data => data)
 }
-
+export function _EditPost(obj, id) {
+  return fetch(api + 'posts/' + id,
+    { method: 'PUT', headers, body: JSON.stringify(obj) })
+    .then(res => res.json())
+    .then(data => data)
+}
 export function _comentarioLike(id, option) {
   return fetch(api + 'comments/' + id,
     { method: 'POST', headers, body: JSON.stringify({ option }) })

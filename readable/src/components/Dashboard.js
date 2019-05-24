@@ -1,36 +1,40 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Post from './Post'
+import { Container,Row,ListGroup,Col } from 'react-bootstrap';
 class Dashboard extends Component {
 
     render() {
         return (
-            <div>
-                <h3 className='center'>You TimeLine</h3>
-                <div className='row justify-content-md-center'>
-                    <ul className='dashboard-list'>
+            <Container>
+                <Row>
+                <Col>
+                <ListGroup variant="flush">
                         {this.props.location.pathname === '/' ? (
                             this.props.postsIds.filter((p) => !p.deleted).map((c) => (
-                                <li key={c.id}>
+                                <ListGroup.Item key={c.id}>
                                     <Post id={c.id} />
-                                </li>
+                                </ListGroup.Item>
                             ))) : (
                                 this.props.postsIds.filter((f) => '/' + f.category === this.props.location.pathname && !f.deleted).map((c) => (
-                                    <li key={c.id}>
+                                    <ListGroup.Item  key={c.id}>
                                         <Post id={c.id} />
-                                    </li>
+                                    </ListGroup.Item>
                                 )))
                         }
-                    </ul>
-                </div>
-            </div>
+                    </ListGroup>
+                    </Col>
+                </Row>
+            </Container>
         )
     }
 }
 
 function mapStateToProps({ posts }) {
     return {
-        postsIds: Object.values(posts)
+        postsIds: Object.values(posts).sort((a, b) => {
+            return a.timestamp > b.timestamp ? -1 : a.timestamp < b.timestamp ? 1 : 0;
+        })
     };
 }
 

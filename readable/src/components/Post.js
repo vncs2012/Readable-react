@@ -4,10 +4,15 @@ import { formatPost, formatDate } from '../utils/helpers'
 import { TiArrowBackOutline } from 'react-icons/ti/index'
 import { Link, withRouter } from 'react-router-dom'
 import { MdThumbUp, MdThumbDown, MdClear, MdBrush } from 'react-icons/md/index'
-import { handlePostLike ,handleDeletePost} from '../actions/posts'
+import { handlePostLike, handleDeletePost } from '../actions/posts'
 import { handleInitialData } from '../actions/shared'
+import EditPost from './EditPost'
+import {Card } from 'react-bootstrap';
 
 class Post extends Component {
+    state = {
+        edit: false
+    }
     handleLike = (e, opt) => {
         e.preventDefault()
         const { dispatch, id } = this.props
@@ -21,34 +26,50 @@ class Post extends Component {
         dispatch(handleDeletePost(id))
         dispatch(handleInitialData())
     }
+    handleEdit = (e) => {
+        this.setState({
+            edit: true
+        })
+    }
+    handleCanc = (e) => {
+        this.setState({
+            edit: false
+        })
+    }
     render() {
         const { post } = this.props
         const { id, timestamp, title, body, author, category, voteScore, commentCount } = post
+        console.log(post)
         return (
-            <div className="card" >
-                <div className="card-body">
-                    <h5 className="card-title"><strong>{title}</strong>
-                        <MdClear style={{ float: "right" }} className='tweet-icon' onClick={(e) => this.handleDel(e)} />
-                        <MdBrush style={{ float: "right" }} className='tweet-icon' onClick={(e) => this.handleEdit(e)} />
-                    </h5>
-                    <h6 className="card-subtitle mb-2 text-muted">author: {author} - <Link to={`/${category}`}>{category}</Link> - {formatDate(timestamp)}</h6>
-                    <p className="card-text">{body}</p>
-                    <div className='card-link'>
-                        <Link to={`/posts/${id}`}>
-                            <TiArrowBackOutline className='tweet-icon' />
-                        </Link>
-                        <span>{commentCount !== 0 ? commentCount : 0}</span>
-                        <MdThumbUp className='tweet-icon' onClick={(e) => this.handleLike(e, 'upVote')} values='te' />
-                        <MdThumbDown className='tweet-icon' onClick={(e) => this.handleLike(e, 'downVote')} values='te' />
-                        <span>{voteScore !== 0 ? voteScore : 0}</span>
-                    </div>
-                </div>
-            </div>
+            <div>
+                {this.state.edit === false ? (
+                    <Card bg="light">
+                        <Card.Header> {author} - <Link to={`/${category}`}>{category}</Link> - {formatDate(timestamp)}
+                            <MdClear style={{ float: "right" }} className='tweet-icon' onClick={(e) => this.handleDel(e)} />
+                            <MdBrush style={{ float: "right" }} className='tweet-icon' onClick={(e) => this.handleEdit(e)} />
+                        </Card.Header>
+                        <Card.Body>
+                            <Card.Title>{title}</Card.Title>
+                            <Card.Text>
+                                {body}
+                            </Card.Text>
+                            <Link to={`/posts/${id}`}><TiArrowBackOutline className='tweet-icon' /><span>{commentCount !== 0 ? commentCount : 0}</span></Link>&nbsp;&nbsp; 
+                            <Card.Link href={`/posts/${id}`}><MdThumbUp className='tweet-icon' onClick={(e) => this.handleLike(e, 'upVote')} values='te' /></Card.Link>
+                            <Card.Link href={`/posts/${id}`}><MdThumbDown className='tweet-icon' onClick={(e) => this.handleLike(e, 'downVote')} values='te' /> <span>{voteScore !== 0 ? voteScore : 0}</span></Card.Link>
+                        </Card.Body>                     
+                    </Card>
+                        
+                    ) : (<div>
+            <MdClear style={{ float: "right" }} className='tweet-icon' onClick={(e) => this.handleCanc(e)} />
+            <EditPost category={category} title={title} body={body} author={author} id={id} />
+        </div>)
+    }
+            </div >
         )
     }
 }
 function mapStateToProps({ posts }, { id }) {
-
+console.log('map',id)
     const post = posts[id]
     return {
         post: post

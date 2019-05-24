@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Post from './Post'
 import Comentario from './Comentario'
 import NewComentario from './NewComentario'
-
+import {ListGroup } from 'react-bootstrap';
 import { handleGetComentarios } from '../actions/comentario'
 
 class PostPage extends Component {
@@ -17,19 +17,21 @@ class PostPage extends Component {
     render() {
         const { id, idsComentario } = this.props
         return (
-            <div className=' justify-content-md-center'>
+            <div>
+            <ListGroup variant="flush">
+            <ListGroup.Item>
                 <Post id={id} />
-                <ul className='dashboard-list'>
-                    <li key='new'>
+                </ListGroup.Item>
+                <ListGroup.Item>
                         <NewComentario id={id} />
-                    </li>
+                        </ListGroup.Item>
                     {idsComentario.map((c) => (
-                        <li key={c.id}>
+                         <ListGroup.Item key={c.id}>
                             <Comentario idC={c.id} idp={id} />
-                        </li>
+                        </ListGroup.Item>
                     ))}
-                </ul>
-            </div>
+                </ListGroup>
+                </div>
         )
     }
 }
@@ -38,7 +40,9 @@ function mapStateToProps({ comentario }, props) {
     const { id } = props.match.params
     return {
         id,
-        idsComentario: !Object.values(comentario).filter(f => f.parentId === id) ? [] : Object.values(comentario).filter(f => f.parentId === id && !f.deleted)
+        idsComentario: !Object.values(comentario).filter(f => f.parentId === id) ? [] : Object.values(comentario).sort((a, b) => {
+            return a.timestamp > b.timestamp ? -1 : a.timestamp < b.timestamp ? 1 : 0;
+        }).filter(f => f.parentId === id && !f.deleted)
     }
 }
 
